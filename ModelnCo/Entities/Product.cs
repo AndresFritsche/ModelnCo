@@ -20,7 +20,7 @@ public class Product
 
     public long Price { get; set; }
 
-    public long PictureUrl { get; set; }
+    public required string PictureUrl { get; set; }
 
     public string? Description { get; set; }
 
