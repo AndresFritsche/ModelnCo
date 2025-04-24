@@ -1,13 +1,24 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 
-const products = [
-  {name: "blue navie", price: 100.00},
-  {name: "yellow chicken", price: 200.00},
-  {name: "the red whale", price: 300.00},
-  {name: "beru shinji", price: 400.00}
-];
 
 function App() {
+  const url = "http://localhost:5249"
+
+ const [products, setProducts] = useState<{name:string, price:number}[]>([])
+
+ useEffect(() =>{
+  fetch(`${url}/api/products`)
+  .then(response => response.json())
+  .then(data => setProducts(data))
+ }, [])
+
+const addProducts = () => {
+
+  setProducts(prevState => [...prevState, {name:"product"  + (prevState.length + 1), price:(prevState.length * 100) + 100}])
+}
+
+
   return (
     <>
       <div>
@@ -15,6 +26,10 @@ function App() {
         <ul>{products.map((item, index) => (
           <li key={index}>{item.name} - ${item.price.toFixed(2)}</li>
         ))}</ul>
+        <div>
+
+        </div>
+        <button onClick={addProducts}>add product </button>
       </div>
     </>
   );
